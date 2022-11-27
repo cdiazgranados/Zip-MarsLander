@@ -10,6 +10,11 @@ public class DescentEvent {
         this.Velocity = sp;
         this.Fuel = f;
         this.Altitude = h;
+        this.Status = st; //caro changed this
+    }
+
+    public DescentEvent() {
+
     }
 
     public int getVelocity() {

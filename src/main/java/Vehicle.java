@@ -1,7 +1,9 @@
 public class Vehicle {
 
     public Vehicle(int InitialAltitude) {
-        // initialize the altitude AND previous altitude to initialAltitude
+        // TODO: initialize the altitude AND previous altitude to initialAltitude
+        Altitude = InitialAltitude;
+        PrevAltitude = InitialAltitude;
     }
 
     int Gravity = 100;
@@ -25,7 +27,8 @@ public class Vehicle {
     int Velocity= 1000;
     int Fuel = 12000;
     int Burn = 0;
-    int Flying = FLYING;
+    int Status = FLYING;
+
 
     public Vehicle() {}
 
@@ -34,50 +37,64 @@ public class Vehicle {
         if (this.Altitude <= 0) {
             if (this.Velocity > 10) {
                 s = dead;
-                Flying = DEAD;
+                this.Status = DEAD;
             }
             if (this.Velocity < 10 && this.Velocity > 3) {
                 s = crashed;
-                Flying = CRASHED;
+                this.Status = CRASHED;
             }
             if (this.Velocity < 3) {
                 s = success;
-                Flying = SUCCESS;
+                this.Status = SUCCESS;
             }
         } else {
             if (this.Altitude > 0) {
                 s = emptyfuel;
-                Flying = EMPTYFUEL;
+                this.Status = EMPTYFUEL;
             } }
         return s;
     }
 
     public int computeDeltaV() {
-        // return velocity + gravity - burn amount
-        return 0;
+        // TODO: return velocity + gravity - burn amount
+        return Velocity + Gravity - Burn; //caro: changed. IS IT BURN for burn amount?
     }
 
     public void adjustForBurn(int burnAmount) {
-        // set burn to burnamount requested
-        // save previousAltitude with current Altitude
-        // set new velocity to result of computeDeltaV function.
-        // subtract speed from Altitude
-        // subtract burn amount fuel used from tank
+        // TODO: set burn to burnamount requested
+        // TODO: save previousAltitude with current Altitude
+        // TODO set new velocity to result of computeDeltaV function.
+        // TODO subtract speed from Altitude
+        // TODO subtract burn amount fuel used from tank
+        //Caro changed. unsure about directions
+        Burn = burnAmount; //burn amount requested?
+        PrevAltitude = Altitude;
+        Velocity = computeDeltaV();
+        Altitude -= Velocity; //is velocity speed?
+        Fuel -= Burn;
     }
 
     public boolean stillFlying() {
-        // return true if altitude is positive
+        // TODO return true if altitude is positive
+        if (Altitude > 0) {
+            return true;
+        }
         return false;
     }
     public boolean outOfFuel() {
-        // return true if fuel is less than or equal to zero
-        return true;
+        // TODO return true if fuel is less than or equal to zero
+        if (Fuel <= 0) {
+            return true;
+        }
+        return false;
     }
 
-    public DescentEvent getStatus(int tick) {
-        // create a return a new DescentEvent object
-        // filled in with the state of the vehicle.
-        return null;
+    public DescentEvent getStatus(int tick) { //it's burnInterval in simulation
+        // TODO create a return a new DescentEvent object
+        // TODO filled in with the state of the vehicle.
+
+        checkFinalStatus(); //caro: added line
+        return new DescentEvent(tick, Velocity, Fuel, Altitude, Status); //is status flying?
     }
 
 }
