@@ -80,9 +80,13 @@ public class Simulation {
 
         //Caro: copy and pasted to the main
 //        Simulation game = new Simulation(new Vehicle(Simulation.randomaltitude()));
-        Simulation game = new Simulation(new Vehicle(15000));
+        Simulation game = new Simulation(new Vehicle(5000));
         BurnStream burnSource = new BurnInputStream();
         game.runSimulation(burnSource);
     }
+
+
+
+
 
 }

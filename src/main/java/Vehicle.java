@@ -4,6 +4,7 @@ public class Vehicle {
         // TODO: initialize the altitude AND previous altitude to initialAltitude
         Altitude = InitialAltitude;
         PrevAltitude = InitialAltitude;
+//        PrevAltitude = Altitude;
     }
 
     int Gravity = 100;
